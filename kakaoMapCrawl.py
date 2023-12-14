@@ -37,11 +37,9 @@ time.sleep(1)
 more_place = driver.find_element(By.XPATH, "//a[@id='info.search.place.more']")
 
 driver.execute_script("arguments[0].click();", more_place)
-time.sleep(3)
+time.sleep(2)
 
-for page_num in range(1,5):
+for page_num in range(2, 6):
     place_num = driver.find_element(By.XPATH, "//a[@id='info.search.page.no"+ str(page_num)+"']")
     driver.execute_script("arguments[0].click();", place_num)
-
     time.sleep(1)
-    print(page_num)
