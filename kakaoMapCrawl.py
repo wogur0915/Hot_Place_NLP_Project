@@ -67,7 +67,7 @@ for page_url in page_urls:
         continue
 
     # 무한 스크롤링하여 모든 후기 수집
-    for i in range(30):
+    while True:
         try:
             # '후기 더보기' 버튼 클릭
             another_reviews = driver.find_element(By.XPATH, '//*[@id="mArticle"]/div[7]/div[3]/a')
@@ -78,3 +78,4 @@ for page_url in page_urls:
                 break
         except:
             break
+
