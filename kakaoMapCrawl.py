@@ -23,7 +23,7 @@ searchbox.send_keys("충북대 맛집")
 # 검색
 searchbutton = driver.find_element(By.XPATH, "//button[@id='search.keyword.submit']")
 driver.execute_script("arguments[0].click();", searchbutton)
-time.sleep(2)
+time.sleep(1)
 
 # 첫 페이지 상세보기 URL 수집
 html = driver.page_source
@@ -35,7 +35,7 @@ page_urls = [moreview.get("href") for moreview in moreviews]
 time.sleep(1)
 more_place = driver.find_element(By.XPATH, "//a[@id='info.search.place.more']")
 driver.execute_script("arguments[0].click();", more_place)
-time.sleep(2)
+time.sleep(1)
 
 # 페이지 번호를 클릭
 for page_num in range(2, 6):
@@ -47,7 +47,7 @@ for page_num in range(2, 6):
     html = driver.page_source
     soup = BeautifulSoup(html, "html.parser")
     moreviews = soup.find_all(name="a", attrs={"class":"moreview"})
-    page_urls.append(moreview.get("href") for moreview in moreviews)
+    page_urls.extend([moreview.get("href") for moreview in moreviews])
 
-print("총", len(page_urls), "개의 페이지에서 맛집 정보를 수집합니다.")
+print("총", len(page_urls), "개의 맛집 정보를 수집합니다.")
 print(page_urls)
