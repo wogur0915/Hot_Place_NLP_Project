@@ -79,3 +79,6 @@ for page_url in page_urls:
         except:
             break
 
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'html.parser')
+    contents_div = soup.find(name="div", attrs={"class":"evaluation_review"})
