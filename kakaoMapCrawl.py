@@ -24,3 +24,9 @@ searchbox.send_keys("충북대 맛집")
 searchbutton = driver.find_element(By.XPATH, "//button[@id='search.keyword.submit']")
 driver.execute_script("arguments[0].click();", searchbutton)
 time.sleep(2)
+
+# 페이지 URL 수집
+html = driver.page_source
+soup = BeautifulSoup(html, "html.parser")
+moreviews = soup.find_all(name="a", attrs={"class":"moreview"})
+page_urls = [moreview.get("href") for moreview in moreviews]
