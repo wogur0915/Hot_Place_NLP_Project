@@ -90,4 +90,7 @@ for page_url in page_urls:
     for rate, review in zip(rates, reviews):
         review_data.append([rate, review.find(name="span").text])
 
-    
+# DataFrame 생성
+df = pd.DataFrame(review_data, columns=['score', 'review'])
+df['y'] = df['score'].apply(lambda x: 1 if x > 3 else 0)
+print(df.shape)    
