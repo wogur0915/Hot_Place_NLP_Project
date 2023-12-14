@@ -30,3 +30,16 @@ html = driver.page_source
 soup = BeautifulSoup(html, "html.parser")
 moreviews = soup.find_all(name="a", attrs={"class":"moreview"})
 page_urls = [moreview.get("href") for moreview in moreviews]
+
+# 2페이지부터 5페이지까지 검색
+    # 페이지 번호를 클릭
+time.sleep(5)
+a = driver.find_element(By.XPATH, '//*[@id="info.search.place.more"]')
+a.click()
+time.sleep(5)
+for page_num in range(1,5):
+    b = driver.find_element(By.XPATH, "//*[@id='info.search.page.no"+ str(page_num)+"']")
+    b.click()
+
+    time.sleep(1)
+    print(page_num)
