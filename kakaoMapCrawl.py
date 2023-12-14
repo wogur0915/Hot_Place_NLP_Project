@@ -67,7 +67,7 @@ for page_url in page_urls:
         continue
 
     # 무한 스크롤링하여 모든 후기 수집
-    for i in range(30):
+    while True:
         try:
             # '후기 더보기' 버튼 클릭
             another_reviews = driver.find_element(By.XPATH, '//*[@id="mArticle"]/div[7]/div[3]/a')
@@ -78,3 +78,25 @@ for page_url in page_urls:
                 break
         except:
             break
+
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'html.parser')
+    contents_div = soup.find(name="div", attrs={"class":"evaluation_review"})
+
+    star_rates = contents_div.find_all(name="span", attrs={"class":"ico_star inner_star"})
+    rates = [int(element['style'].split(':')[1].strip('%;')) / 20 for element in star_rates]
+
+    reviews = contents_div.find_all(name="p", attrs={"class":"txt_comment"})
+    for rate, review in zip(rates, reviews):
+        review_data.append([rate, review.find(name="span").text])
+
+# DataFrame 생성
+df = pd.DataFrame(review_data, columns=['score', 'review'])
+df['y'] = df['score'].apply(lambda x: 1 if x > 3 else 0)
+print(df.shape)    
+
+# CSV 파일로 저장
+df.to_csv("review_data.csv", index=False, encoding='utf-8')
+
+# 드라이버 종료
+driver.quit()
