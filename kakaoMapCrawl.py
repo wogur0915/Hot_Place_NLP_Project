@@ -47,4 +47,7 @@ for page_num in range(2, 6):
     html = driver.page_source
     soup = BeautifulSoup(html, "html.parser")
     moreviews = soup.find_all(name="a", attrs={"class":"moreview"})
-    page_urls = [moreview.get("href") for moreview in moreviews]
+    page_urls.append(moreview.get("href") for moreview in moreviews)
+
+print("총", len(page_urls), "개의 페이지에서 맛집 정보를 수집합니다.")
+print(page_urls)
