@@ -25,21 +25,26 @@ searchbutton = driver.find_element(By.XPATH, "//button[@id='search.keyword.submi
 driver.execute_script("arguments[0].click();", searchbutton)
 time.sleep(2)
 
-# 페이지 URL 수집
+# 첫 페이지 상세보기 URL 수집
 html = driver.page_source
 soup = BeautifulSoup(html, "html.parser")
 moreviews = soup.find_all(name="a", attrs={"class":"moreview"})
 page_urls = [moreview.get("href") for moreview in moreviews]
 
-# 2페이지부터 5페이지까지 검색
-    # 페이지 번호를 클릭
+# 장소 더보기 클릭
 time.sleep(1)
 more_place = driver.find_element(By.XPATH, "//a[@id='info.search.place.more']")
-
 driver.execute_script("arguments[0].click();", more_place)
 time.sleep(2)
 
+# 페이지 번호를 클릭
 for page_num in range(2, 6):
     place_num = driver.find_element(By.XPATH, "//a[@id='info.search.page.no"+ str(page_num)+"']")
     driver.execute_script("arguments[0].click();", place_num)
     time.sleep(1)
+
+    # 이후 페이지 URL 수집
+    html = driver.page_source
+    soup = BeautifulSoup(html, "html.parser")
+    moreviews = soup.find_all(name="a", attrs={"class":"moreview"})
+    page_urls = [moreview.get("href") for moreview in moreviews]
