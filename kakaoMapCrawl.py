@@ -33,14 +33,15 @@ page_urls = [moreview.get("href") for moreview in moreviews]
 
 # 2페이지부터 5페이지까지 검색
     # 페이지 번호를 클릭
-time.sleep(3)
-a = driver.find_element(By.XPATH, '//a[@id="info.search.place.more"]')
-a.click()
+time.sleep(1)
+more_place = driver.find_element(By.XPATH, "//a[@id='info.search.place.more']")
 
+driver.execute_script("arguments[0].click();", more_place)
 time.sleep(3)
+
 for page_num in range(1,5):
-    b = driver.find_element(By.XPATH, "//a[@id='info.search.page.no"+ str(page_num)+"']")
-    b.click()
+    place_num = driver.find_element(By.XPATH, "//a[@id='info.search.page.no"+ str(page_num)+"']")
+    driver.execute_script("arguments[0].click();", place_num)
 
     time.sleep(1)
     print(page_num)
