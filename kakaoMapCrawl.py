@@ -65,3 +65,16 @@ for page_url in page_urls:
     if contents_div is None:
         print(f"리뷰가 없는 페이지: {page_url}")
         continue
+
+    # 무한 스크롤링하여 모든 후기 수집
+    for i in range(30):
+        try:
+            # '후기 더보기' 버튼 클릭
+            another_reviews = driver.find_element(By.XPATH, '//*[@id="mArticle"]/div[7]/div[3]/a')
+            if another_reviews.text == '후기 더보기':
+                another_reviews.click()
+                time.sleep(1)
+            else:
+                break
+        except:
+            break
