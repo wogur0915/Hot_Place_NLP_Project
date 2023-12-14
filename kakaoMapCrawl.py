@@ -57,3 +57,11 @@ review_data = []
 for page_url in page_urls:
     driver.get(page_url)
     time.sleep(2)
+
+    # 에러 처리 추가
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'html.parser')
+    contents_div = soup.find(name="div", attrs={"class":"evaluation_review"})
+    if contents_div is None:
+        print(f"리뷰가 없는 페이지: {page_url}")
+        continue
