@@ -51,3 +51,9 @@ for page_num in range(2, 6):
 
 print("총", len(page_urls), "개의 맛집 정보를 수집합니다.")
 print(page_urls)
+
+# 리뷰 데이터 수집
+review_data = []
+for page_url in page_urls:
+    driver.get(page_url)
+    time.sleep(2)
