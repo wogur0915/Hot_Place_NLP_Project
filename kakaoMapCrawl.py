@@ -82,3 +82,6 @@ for page_url in page_urls:
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
     contents_div = soup.find(name="div", attrs={"class":"evaluation_review"})
+
+    star_rates = contents_div.find_all(name="span", attrs={"class":"ico_star inner_star"})
+    rates = [int(element['style'].split(':')[1].strip('%;')) / 20 for element in star_rates]
