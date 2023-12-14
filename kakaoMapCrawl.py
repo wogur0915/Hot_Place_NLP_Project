@@ -85,3 +85,9 @@ for page_url in page_urls:
 
     star_rates = contents_div.find_all(name="span", attrs={"class":"ico_star inner_star"})
     rates = [int(element['style'].split(':')[1].strip('%;')) / 20 for element in star_rates]
+
+    reviews = contents_div.find_all(name="p", attrs={"class":"txt_comment"})
+    for rate, review in zip(rates, reviews):
+        review_data.append([rate, review.find(name="span").text])
+
+    
