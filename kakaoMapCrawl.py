@@ -69,6 +69,7 @@ for page_url in page_urls:
     # 무한 스크롤링하여 모든 후기 수집
     while True:
         try:
+            section = driver.find_element(By.XPATH, '//*[@id="mArticle"]/div[3]/div')
             # '후기 더보기' 버튼 클릭
             another_reviews = driver.find_element(By.XPATH, '//*[@id="mArticle"]/div[7]/div[3]/a')
             if another_reviews.text == '후기 더보기':
@@ -77,7 +78,16 @@ for page_url in page_urls:
             else:
                 break
         except:
-            break
+            try:
+                # '후기 더보기' 버튼 클릭
+                another_reviews = driver.find_element(By.XPATH, '//*[@id="mArticle"]/div[6]/div[3]/a')
+                if another_reviews.text == '후기 더보기':
+                    another_reviews.click()
+                    time.sleep(1)
+                else:
+                    break
+            except:
+                break
 
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')

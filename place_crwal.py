@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 import re
 import time
 
-restaurant_name = input()
+restaurant_name = input("검색할 맛집 이름을 입력하세요: ")
 
 # 크롤링할 사이트 주소 = 카카오맵
 url = "https://map.kakao.com/"
@@ -41,7 +41,7 @@ print(page_urls)
 review_data = []
 page_url = page_urls[0]
 driver.get(page_url)
-time.sleep(2)
+time.sleep(1)
 
 # 에러 처리 추가
 html = driver.page_source
@@ -53,6 +53,7 @@ if contents_div is None:
 # 무한 스크롤링하여 모든 후기 수집
 while True:
     try:
+        section = driver.find_element(By.XPATH, '//*[@id="mArticle"]/div[3]/div')
         # '후기 더보기' 버튼 클릭
         another_reviews = driver.find_element(By.XPATH, '//*[@id="mArticle"]/div[7]/div[3]/a')
         if another_reviews.text == '후기 더보기':
@@ -61,7 +62,16 @@ while True:
         else:
             break
     except:
-        break
+        try:
+            # '후기 더보기' 버튼 클릭
+            another_reviews = driver.find_element(By.XPATH, '//*[@id="mArticle"]/div[6]/div[3]/a')
+            if another_reviews.text == '후기 더보기':
+                another_reviews.click()
+                time.sleep(1)
+            else:
+                break
+        except:
+            break
 
 html = driver.page_source
 soup = BeautifulSoup(html, 'html.parser')
