@@ -71,7 +71,13 @@ while True:
             else:
                 break
         except:
-            break
+            # '후기 더보기' 버튼 클릭
+            another_reviews = driver.find_element(By.XPATH, '//*[@id="mArticle"]/div[8]/div[3]/a')
+            if another_reviews.text == '후기 더보기':
+                another_reviews.click()
+                time.sleep(1)
+            else:
+                break
 
 html = driver.page_source
 soup = BeautifulSoup(html, 'html.parser')
