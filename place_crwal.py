@@ -80,7 +80,8 @@ df['y'] = df['score'].apply(lambda x: 1 if x > 3 else 0)
 print(df.shape)    
 
 # CSV 파일로 저장
-df.to_csv("review_data_{restaurant_name}.csv", index=False, encoding='utf-8-sig')
+filename = f"review_data_{restaurant_name}.csv"
+df.to_csv(filename, index=False, encoding='utf-8-sig')
 
 # 드라이버 종료
 driver.quit()
