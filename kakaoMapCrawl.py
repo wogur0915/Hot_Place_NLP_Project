@@ -18,7 +18,7 @@ driver.get(url)
 
 # 검색어를 입력
 searchbox = driver.find_element(By.XPATH, "//input[@id='search.keyword.query']")
-searchbox.send_keys("충북대 맛집")
+searchbox.send_keys("충남대 맛집")
 
 # 검색
 searchbutton = driver.find_element(By.XPATH, "//button[@id='search.keyword.submit']")
@@ -96,7 +96,7 @@ df['y'] = df['score'].apply(lambda x: 1 if x > 3 else 0)
 print(df.shape)    
 
 # CSV 파일로 저장
-df.to_csv("review_data.csv", index=False, encoding='utf-8-sig')
+df.to_csv("review_data_gangnam.csv", index=False, encoding='utf-8-sig')
 
 # 드라이버 종료
 driver.quit()
