@@ -63,16 +63,16 @@ while True:
     except:
         break
 
-    html = driver.page_source
-    soup = BeautifulSoup(html, 'html.parser')
-    contents_div = soup.find(name="div", attrs={"class":"evaluation_review"})
+html = driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+contents_div = soup.find(name="div", attrs={"class":"evaluation_review"})
 
-    star_rates = contents_div.find_all(name="span", attrs={"class":"ico_star inner_star"})
-    rates = [int(element['style'].split(':')[1].strip('%;')) / 20 for element in star_rates]
+star_rates = contents_div.find_all(name="span", attrs={"class":"ico_star inner_star"})
+rates = [int(element['style'].split(':')[1].strip('%;')) / 20 for element in star_rates]
 
-    reviews = contents_div.find_all(name="p", attrs={"class":"txt_comment"})
-    for rate, review in zip(rates, reviews):
-        review_data.append([rate, review.find(name="span").text])
+reviews = contents_div.find_all(name="p", attrs={"class":"txt_comment"})
+for rate, review in zip(rates, reviews):
+    review_data.append([rate, review.find(name="span").text])
 
 # DataFrame 생성
 df = pd.DataFrame(review_data, columns=['score', 'review'])
